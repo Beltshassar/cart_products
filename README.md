@@ -10,7 +10,7 @@ Cart Products provides an own data storage for simple and configurable products.
 
 -
 -
--
+- Category demand override
 
 ## 2. Installation
 
