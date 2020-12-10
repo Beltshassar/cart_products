@@ -141,6 +141,32 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         return $demand;
     }
 
+     /**
+     * Overwrites a given demand object by an propertyName =>  $propertyValue array
+     *
+     * @param \Extcode\CartProducts\Domain\Model\Dto\Product\ProductDemand $demand
+     * @param array $overwriteDemand
+     * @return \Extcode\CartProducts\Domain\Model\Dto\Product\ProductDemand
+     */
+    protected function overwriteDemandObject($demand, $overwriteDemand)
+    {
+        error_log('::overwriteDemandObject');
+//        foreach ($this->ignoredSettingsForOverride as $property) {
+//            unset($overwriteDemand[$property]);
+//        }
+
+        foreach ($overwriteDemand as $propertyName => $propertyValue) {
+//            if (in_array(strtolower($propertyName), $this->ignoredSettingsForOverride, true)) {
+//                continue;
+//            }
+            if ($propertyValue !== '' || $this->settings['allowEmptyStringsForOverwriteDemand']) {
+                \TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
+            }
+        }
+        return $demand;
+    }
+
+
     /**
      * @param \Extcode\CartProducts\Domain\Model\Dto\Product\ProductDemand $demand
      */
@@ -173,12 +199,17 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     /**
      * action list
+     *
+     * @param array $overwriteDemand
      */
-    public function listAction()
+    public function listAction(array $overwriteDemand = null)
     {
         $demand = $this->createDemandObjectFromSettings($this->settings);
         $demand->setActionAndClass(__METHOD__, __CLASS__);
 
+        if ($this->settings['disableOverrideDemand'] != 1 && $overwriteDemand !== null) {
+            $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
+        }
         $products = $this->productRepository->findDemanded($demand);
 
         $this->view->assign('searchArguments', $this->searchArguments);
