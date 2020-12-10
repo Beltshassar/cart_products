@@ -208,7 +208,7 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $demand->setActionAndClass(__METHOD__, __CLASS__);
 
         error_log('::listAction');
-        error_log('$this->settings['disableOverrideDemand']:'. $this->settings['disableOverrideDemand']);
+        error_log('$this->settings[\'disableOverrideDemand\']:'. $this->settings['disableOverrideDemand']);
         error_log('$overwriteDemand:'. $overwriteDemand);
         if ($this->settings['disableOverrideDemand'] != 1 && $overwriteDemand !== null) {
             $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
