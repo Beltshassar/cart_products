@@ -120,6 +120,11 @@ class VariantSelectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractV
         $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
             \TYPO3\CMS\Extbase\Object\ObjectManager::class
         );
+        $context = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            \TYPO3\CMS\Core\Context\Context::class
+        );
+        $frontendUserGroupIds = $context->getPropertyFromAspect('frontend.user', 'groupIds');
+        // $frontendUserGroupIds = explode(',', $GLOBALS['TSFE']->fe_user->user['usergroup']);
         $currencyViewHelper = $objectManager->get(
             \Extcode\Cart\ViewHelpers\Format\CurrencyViewHelper::class
         );
@@ -138,8 +143,8 @@ class VariantSelectViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractV
             $regularPrice = $currencyViewHelper->render();
 
             $currencyViewHelper->setRenderChildrenClosure(
-                function () use ($beVariant) {
-                    return $beVariant->getBestPriceCalculated();
+                function () use ($beVariant, $frontendUserGroupIds) {
+                    return $beVariant->getBestPriceCalculated($frontendUserGroupIds);
                 }
             );
             $specialPrice = $currencyViewHelper->render();

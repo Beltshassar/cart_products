@@ -150,7 +150,7 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     protected function overwriteDemandObject($demand, $overwriteDemand)
     {
-        error_log('::overwriteDemandObject');
+//        error_log('::overwriteDemandObject');
 //        foreach ($this->ignoredSettingsForOverride as $property) {
 //            unset($overwriteDemand[$property]);
 //        }
@@ -207,13 +207,13 @@ class ProductController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $demand = $this->createDemandObjectFromSettings($this->settings);
         $demand->setActionAndClass(__METHOD__, __CLASS__);
 
-        error_log('::listAction');
-        error_log('$this->settings[\'disableOverrideDemand\']:'. $this->settings['disableOverrideDemand']);
-        error_log('$overwriteDemand:'. $overwriteDemand);
+//        error_log('::listAction');
+//        error_log('$this->settings[\'disableOverrideDemand\']:'. $this->settings['disableOverrideDemand']);
+//        error_log('$overwriteDemand:'. $overwriteDemand);
         if ($this->settings['disableOverrideDemand'] != 1 && $overwriteDemand !== null) {
             $demand = $this->overwriteDemandObject($demand, $overwriteDemand);
         }
-        error_log("demand: ". print_r($demand,1));
+//        error_log("demand: ". print_r($demand,1));
         $products = $this->productRepository->findDemanded($demand);
 
         $this->view->assign('searchArguments', $this->searchArguments);
