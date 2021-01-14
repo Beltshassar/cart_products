@@ -86,10 +86,11 @@ return [
                 'foreign_table' => 'fe_groups',
                 'size' => 1,
                 'items' => [
-                    ['', 0],
+                    ['',  '0'],
                 ],
                 'minitems' => 0,
                 'maxitems' => 1,
+                'default' => 0,
             ]
         ],
 
