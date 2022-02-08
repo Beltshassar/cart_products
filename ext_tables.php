@@ -8,20 +8,20 @@ $_LLL_be = 'LLL:EXT:cart_products/Resources/Private/Language/locallang_be.xlf:';
 /**
  * Register Backend Modules
  */
-if (TYPO3_MODE === 'BE') {
-    if (!isset($TBE_MODULES['Cart'])) {
-        $temp_TBE_MODULES = [];
-        foreach ($TBE_MODULES as $key => $val) {
-            if ($key == 'file') {
-                $temp_TBE_MODULES[$key] = $val;
-                $temp_TBE_MODULES['Cart'] = '';
-            } else {
-                $temp_TBE_MODULES[$key] = $val;
-            }
-        }
+//if (TYPO3_MODE === 'BE') {
+//    if (!isset($TBE_MODULES['Cart'])) {
+//        $temp_TBE_MODULES = [];
+//        foreach ($TBE_MODULES as $key => $val) {
+//            if ($key == 'file') {
+//                $temp_TBE_MODULES[$key] = $val;
+//                $temp_TBE_MODULES['Cart'] = '';
+//            } else {
+//                $temp_TBE_MODULES[$key] = $val;
+//            }
+//        }
 
-        $TBE_MODULES = $temp_TBE_MODULES;
-    }
+//        $TBE_MODULES = $temp_TBE_MODULES;
+//    }
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
         'Extcode.cart_products',
